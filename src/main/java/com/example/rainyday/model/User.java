@@ -1,10 +1,18 @@
 package com.example.rainyday.model;
 
+import jakarta.persistence.*;
+
 import java.util.Objects;
 
+@Entity
+@Table(name = "users")
 public class User {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    public  long id;
     public String username;
     public String password;
+    @Column(name = "isAdmin")
     public boolean isAdmin;
 
     public User(String username, String password, boolean isAdmin) {
@@ -12,6 +20,11 @@ public class User {
         this.password = password;
         this.isAdmin = isAdmin;
     }
+
+    public User() {
+
+    }
+
 
     public String getUsername() {
         return username;
