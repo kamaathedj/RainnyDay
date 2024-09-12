@@ -1,5 +1,6 @@
 package com.example.rainyday.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 
 import java.util.Objects;
@@ -9,11 +10,14 @@ import java.util.Objects;
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    public  long id;
-    public String username;
-    public String password;
-    @Column(name = "isAdmin")
-    public boolean isAdmin;
+    @JsonProperty(access = JsonProperty.Access.READ_WRITE)
+    private  long id;
+    private String username;
+    @JsonProperty(access = JsonProperty.Access.READ_WRITE)
+    private boolean isAdmin;
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    private String password;
+
 
     public User(String username, String password, boolean isAdmin) {
         this.username = username;

@@ -1,6 +1,5 @@
 package com.example.rainyday.security;
 
-import com.example.rainyday.model.User;
 import com.example.rainyday.repository.UserRepository;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;

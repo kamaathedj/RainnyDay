@@ -6,6 +6,7 @@ import com.example.rainyday.listener.MyEvent;
 import com.example.rainyday.model.User;
 import com.example.rainyday.service.UserService;
 import org.springframework.context.ApplicationEventPublisher;
+import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
@@ -36,16 +37,23 @@ public class UserController {
 
     @PostMapping("/create/user")
     @Transactional
-    public User createUser(@RequestBody User user){
+    public ResponseEntity<User> createUser(@RequestBody User user){
         EventDetails details = new EventDetails("user creation", "New user created");
         MyEvent event = new MyEvent(this,details);
         var createdUser =  userService.createNewUser(user);
         publisher.publishEvent(event);
-        return createdUser;
+
+        return ResponseEntity.status(201).body(createdUser);
 
     }
     @GetMapping("/user/{id}")
-    public User getUser(@PathVariable Long id){
-        return userService.getUserById(id);
+    public ResponseEntity<User> getUser(@PathVariable Long id){
+        System.out.println("getUserById");
+        return ResponseEntity.ok().body(userService.getUserById(id));
+    }
+
+    @GetMapping("/all")
+    public ResponseEntity<Object> getAllUsers(){
+        return ResponseEntity.ok().body(userService.getAllUsers());
     }
 }
