@@ -3,13 +3,14 @@ package com.example.rainyday.service;
 
 import com.example.rainyday.model.User;
 import com.example.rainyday.repository.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PostAuthorize;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Objects;
 
 @Service
 public class UserService {
@@ -30,9 +31,11 @@ public class UserService {
     }
 
     @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @Transactional
     public User createNewUser(User user){
         User newUser = new User(user.getUsername(), encoder.encode(user.getPassword()),user.isAdmin());
         return userRepository.save(newUser) ;
+
 
     }
 

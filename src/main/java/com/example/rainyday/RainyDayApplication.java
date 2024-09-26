@@ -15,24 +15,24 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @EnableWebSecurity
 public class RainyDayApplication {
 
-    public static void main(String[] args) {
-        SpringApplication.run(RainyDayApplication.class, args);
-    }
+	public static void main(String[] args) {
+		SpringApplication.run(RainyDayApplication.class, args);
+	}
 
-    @Bean
-    ApplicationListener<MyEvent> readyListener(){
-        return event -> {
-            System.out.println(event.getMessage());
-        };
-    }
+	@Bean
+	ApplicationListener<MyEvent> readyListener(){
+		return event -> {
+			System.out.println(event.getMessage());
+		};
+	}
 
-    @Bean
-    ApplicationListener<ApplicationReadyEvent> readyListener2(UserRepository userRepository, PasswordEncoder encoder){
-        return event -> {
-            userRepository.save(new User("kamaa", encoder.encode("1234"), true));
-            userRepository.save(new User("david", encoder.encode("1234"), false));
-        };
-    }
+	@Bean
+	ApplicationListener<ApplicationReadyEvent> readyListener2(UserRepository userRepository, PasswordEncoder encoder){
+		return event -> {
+			userRepository.save(new User("kamaa", encoder.encode("1234"), true));
+			userRepository.save(new User("david", encoder.encode("1234"), false));
+		};
+	}
 
 
 }

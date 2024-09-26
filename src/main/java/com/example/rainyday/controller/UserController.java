@@ -37,7 +37,7 @@ public class UserController {
 
     @PostMapping("/create/user")
     @Transactional
-    public ResponseEntity<User> createUser(@RequestBody User user){
+    public ResponseEntity<User> createUser(@RequestBody User user) {
         EventDetails details = new EventDetails("user creation", "New user created");
         MyEvent event = new MyEvent(this,details);
         var createdUser =  userService.createNewUser(user);
